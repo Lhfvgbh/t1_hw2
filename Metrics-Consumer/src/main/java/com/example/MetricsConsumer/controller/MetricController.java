@@ -58,6 +58,6 @@ public class MetricController {
                 .setDescription(metricDao.getDescription())
                 .setCreatedAt(metricDao.getCreatedAt())
                 .setBaseUnit(metricDao.getBaseUnit())
-                .setMeasurementValues(metricService.deserializeValues(metricDao.getMeasurementValues()));
+                .setMeasurements(metricService.deserializeValues(metricDao.getMeasurements()));
     }
 }

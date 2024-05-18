@@ -16,6 +16,6 @@ public class Metric {
     private String name;
     private String description;
     private String baseUnit;
-    private List<Double> measurementValues;
+    private List<String> measurements;
     private List<MetricTag> availableTags;
 }

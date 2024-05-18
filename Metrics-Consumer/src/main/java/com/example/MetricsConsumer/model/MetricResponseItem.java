@@ -1,7 +1,6 @@
 package com.example.MetricsConsumer.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.persistence.Column;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -20,5 +19,5 @@ public class MetricResponseItem {
     private String description;
     private OffsetDateTime createdAt;
     private String baseUnit;
-    private List<Double> measurementValues;
+    private List<String> measurements;
 }

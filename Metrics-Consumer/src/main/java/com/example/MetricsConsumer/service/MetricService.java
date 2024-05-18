@@ -17,9 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * Сервис для работы с метриками
@@ -46,8 +46,7 @@ public class MetricService {
                         .setDescription(metric.getDescription())
                         .setBaseUnit(metric.getBaseUnit())
                         .setCreatedAt(OffsetDateTime.now())
-                        .setMeasurementValues(
-                                serializeValues(metric.getMeasurementValues())));
+                        .setMeasurements(serializeValues(metric.getMeasurements())));
         metric.getAvailableTags()
                 .forEach(tag -> metricTagsRepository.save(
                         new MetricTagDao()
@@ -105,9 +104,9 @@ public class MetricService {
     }
 
     @Nonnull
-    public List<Double> deserializeValues(@Nullable String jsonString) {
+    public List<String> deserializeValues(@Nullable String jsonString) {
         try {
-            return OBJECT_MAPPER.readValue(jsonString, new TypeReference<List<Double>>(){});
+            return OBJECT_MAPPER.readValue(jsonString, new TypeReference<List<String>>(){});
         } catch (JsonProcessingException e) {
             log.warn("Cannot deserialize json={}", jsonString);
             return List.of();
@@ -115,17 +114,7 @@ public class MetricService {
     }
 
     @Nullable
-    private String serializeValues(@Nullable List<Double> values) {
-        try {
-            return OBJECT_MAPPER.writeValueAsString(values);
-        } catch (JsonProcessingException e) {
-            log.warn("Cannot serialize values={}", values);
-            return null;
-        }
-    }
-
-    @Nullable
-    private String serializeValues(@Nullable Set<String> values) {
+    private String serializeValues(@Nullable Collection<String> values) {
         try {
             return OBJECT_MAPPER.writeValueAsString(values);
         } catch (JsonProcessingException e) {

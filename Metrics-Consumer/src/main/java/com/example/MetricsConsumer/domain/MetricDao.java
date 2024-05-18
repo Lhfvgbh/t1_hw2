@@ -33,6 +33,6 @@ public class MetricDao {
     private String baseUnit;
 
     @Column(name = "values")
-    private String measurementValues;
+    private String measurements;
 
 }
